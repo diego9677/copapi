@@ -1,9 +1,10 @@
 from django.db import models
 
 ROLES = (
-    ('admin', 'Administrador'),
     ('recp', 'Recepcion'),
-
+    ('ctr', 'Constructor'),
+    ('con', 'Contratista'),
+    ('opr', 'Operador')
 )
 
 ESTADOS = (
@@ -48,6 +49,7 @@ class Proyecto(models.Model):
     fecha_inicio = models.DateField(verbose_name='Fecha Inicio')
     fecha_fin = models.DateField(verbose_name='Fecha Fin')
     estado = models.PositiveIntegerField(choices=ESTADOS, verbose_name='estado')
+    barrio = models.ForeignKey(Barrio, null=True, blank=True, related_name='proyectos', on_delete=models.CASCADE)
     empleados = models.ManyToManyField(Empleado, related_name='proyectos')
 
     def __str__(self) -> str:

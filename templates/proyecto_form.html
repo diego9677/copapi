@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% load formclss %}
+
+{% block title %}Poryectos{% endblock %}
+
+{% block content %}
+    <section class="w-1/2 mx-auto">
+        <form class="flex flex-col gap-6" action="." method="post">{% csrf_token %}
+            <h6 class="text-center text-xl font-bold text-neutral-800">
+                {% if object %}Editar{% else %}Nuevo{% endif %} Proyecto
+            </h6>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-semibold text-neutral-800" for="{{ form.tipo.id_for_label }}">{{form.tipo.label}}</label>
+                {{ form.tipo|addclss:"form-control" }}
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-semibold text-neutral-800" for="{{ form.nombre.id_for_label }}">{{form.nombre.label}}</label>
+                {{ form.nombre|addclss:"form-control" }}
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-semibold text-neutral-800" for="{{ form.barrio.id_for_label }}">{{form.barrio.label}}</label>
+                {{ form.barrio|addclss:"form-control" }}
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-semibold text-neutral-800" for="{{ form.poblacion.id_for_label }}">{{form.poblacion.label}}</label>
+                {{ form.poblacion|addclss:"form-control" }}
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-semibold text-neutral-800" for="{{ form.area.id_for_label }}">{{form.area.label}}</label>
+                {{ form.area|addclss:"form-control" }}
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-semibold text-neutral-800" for="{{ form.fecha_inicio.id_for_label }}">{{form.fecha_inicio.label}}</label>
+                {{ form.fecha_inicio|addclss:"form-control" }}
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-semibold text-neutral-800" for="{{ form.fecha_fin.id_for_label }}">{{form.fecha_fin.label}}</label>
+                {{ form.fecha_fin|addclss:"form-control" }}
+            </div>
+
+            <div class="flex gap-2">
+                {% if object %}
+                    <a class="flex-1 btn btn-secondary" href="#">
+                        Cancelar
+                    </a>
+                {% endif %}
+                <button type="submit" class="flex-1 btn btn-primary">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </section>
+{% endblock %}

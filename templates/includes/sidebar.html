@@ -1,17 +1,8 @@
 <section class="hidden md:block md:col-span-2 bg-gray-800">
     <h4 class='text-2xl text-gray-300 text-center py-4 font-bold'>Copapi</h4>
     <div class="flex flex-col">
-        <a href="#"
-            class="outline-none p-4 cursor-pointer {% if request.path == '/contrato/' %}bg-blue-600{%else%}hover:bg-gray-700{% endif %}">
-            <div class="flex gap-2 items-center text-gray-100">
-                <i class="las la-file-alt la-lg"></i>
-                <span class="text-sm font-medium">
-                    Materiales
-                </span>
-            </div>
-        </a>
-        <a href="#"
-            class="outline-none p-4 cursor-pointer {% if request.path == '/linea/' %}bg-blue-600{%else%}hover:bg-gray-700{% endif %}">
+        <a href="{% url 'proyectos' %}"
+            class="outline-none p-4 cursor-pointer {% if request.path == '/proyecto/' %}bg-blue-600{%else%}hover:bg-gray-700{% endif %}">
             <div class="flex gap-2 items-center text-gray-100">
                 <i class="las la-route la-lg"></i>
                 <span class="text-sm font-medium">
@@ -19,8 +10,19 @@
                 </span>
             </div>
         </a>
-        <a href="#"
-            class="outline-none p-4 cursor-pointer {% if request.path == '/linea/aporte/' %}bg-blue-600{%else%}hover:bg-gray-700{% endif %}">
+
+        <a href="{% url 'materiales' %}"
+            class="outline-none p-4 cursor-pointer {% if request.path == '/proyecto/materiales/' %}bg-blue-600{%else%}hover:bg-gray-700{% endif %}">
+            <div class="flex gap-2 items-center text-gray-100">
+                <i class="las la-file-alt la-lg"></i>
+                <span class="text-sm font-medium">
+                    Materiales
+                </span>
+            </div>
+        </a>
+
+        <a href="{% url 'reportes' %}"
+            class="outline-none p-4 cursor-pointer {% if request.path == '/proyecto/reportes/' %}bg-blue-600{%else%}hover:bg-gray-700{% endif %}">
             <div class="flex gap-2 items-center text-gray-100">
                 <i class="las la-donate la-lg"></i>
                 <span class="text-sm font-medium">

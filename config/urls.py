@@ -17,16 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
-
-
-class IndexTemplateView(LoginRequiredMixin, TemplateView):
-    template_name = 'index.html'
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', IndexTemplateView.as_view(), name='index'),
+    path('proyecto/', include('proyecto.urls')),
+    path('', RedirectView.as_view(pattern_name='proyectos'), name='index'),
 ]
