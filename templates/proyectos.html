@@ -52,12 +52,12 @@
                         <td class="p-2">{{ object.get_estado_display }}</td>
                         <td class="flex gap-2 items-center justify-center h-12">
                             <div class="w-8">
-                                <a href="#" class="btn-success">
+                                <a href="{% url 'proyecto-update' object.pk %}" class="btn-success">
                                     <i class="las la-pen la-lg"></i>
                                 </a>
                             </div>
                             <div class="w-8">
-                                <a href="#" class="btn-danger">
+                                <a href="{% url 'proyecto-delete' object.pk %}" class="btn-danger">
                                     <i class="las la-trash-alt la-lg"></i>
                                 </a>
                             </div>
