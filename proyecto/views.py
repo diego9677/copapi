@@ -30,7 +30,7 @@ class ProyectoCreateView(LoginRequiredMixin, FormView):
             poblacion=form.cleaned_data['poblacion'],
             area=form.cleaned_data['area'],
         )
-        Proyecto.objects.create(
+        proyecto = Proyecto.objects.create(
             tipo=form.cleaned_data['tipo'],
             nombre=form.cleaned_data['nombre'],
             fecha_inicio=form.cleaned_data['fecha_inicio'],
@@ -38,6 +38,9 @@ class ProyectoCreateView(LoginRequiredMixin, FormView):
             barrio=barrio,
             estado=1,
         )
+
+        proyecto.empleados.set(form.cleaned_data['empleados'])
+        proyecto.save()
 
         return super().form_valid(form)
 
@@ -54,7 +57,7 @@ class ProyectoUpdateView(LoginRequiredMixin, FormView):
 
     def get_initial(self) -> dict[str, Any]:
         initial = super().get_initial()
-        obj = Proyecto.objects.select_related('tipo', 'barrio').get(pk=self.kwargs['pk'])
+        obj = Proyecto.objects.select_related('tipo', 'barrio').prefetch_related('empleados').get(pk=self.kwargs['pk'])
         initial.update({
             'tipo': obj.tipo,
             'nombre': obj.nombre,
@@ -63,6 +66,7 @@ class ProyectoUpdateView(LoginRequiredMixin, FormView):
             'area': obj.barrio.area,
             'fecha_inicio': obj.fecha_inicio,
             'fecha_fin': obj.fecha_fin,
+            'empleados': obj.empleados.all()
         })
         return initial
 
@@ -75,6 +79,7 @@ class ProyectoUpdateView(LoginRequiredMixin, FormView):
         obj.barrio.area = form.cleaned_data['area']
         obj.fecha_inicio = form.cleaned_data['fecha_inicio']
         obj.fecha_fin = form.cleaned_data['fecha_fin']
+        obj.empleados.set(form.cleaned_data['empleados'])
         obj.barrio.save()
         obj.save()
         return super().form_valid(form)
@@ -86,8 +91,10 @@ class ProyectoDeleteView(LoginRequiredMixin, DeleteView):
     success_url = '/proyecto/'
 
 
-def asigancion_materiales(request: HttpRequest):
-    return render(request, 'materiales.html')
+def materiales(request: HttpRequest):
+    context = {}
+    context['proyectos'] = Proyecto.objects.select_related('tipo', 'barrio').all()
+    return render(request, 'materiales.html', context)
 
 
 def reportes(request: HttpRequest):

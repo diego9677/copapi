@@ -40,7 +40,7 @@ class Empleado(models.Model):
     rol = models.CharField(max_length=10, choices=ROLES, verbose_name='Rol')
 
     def __str__(self) -> str:
-        return f'{self.persona.nombres} {self.rol}'
+        return self.persona.nombres
 
 
 class Proyecto(models.Model):

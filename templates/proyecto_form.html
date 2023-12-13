@@ -45,6 +45,11 @@
                 {{ form.fecha_fin|addclss:"form-control" }}
             </div>
 
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-semibold text-neutral-800" for="{{ form.empleados.id_for_label }}">{{form.empleados.label}}</label>
+                {{ form.empleados }}
+            </div>
+
             <div class="flex gap-2">
                 <a class="flex-1 btn btn-secondary" href="{% url 'proyectos' %}">
                     Cancelar

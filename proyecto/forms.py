@@ -1,5 +1,5 @@
 from django import forms
-from .models import TipoProyecto
+from .models import TipoProyecto, Empleado
 
 
 class ProyectoForm(forms.Form):
@@ -16,3 +16,7 @@ class ProyectoForm(forms.Form):
     area = forms.FloatField(label='Area', widget=forms.TextInput(attrs={'type': 'number', 'step': '0.1'}))
     fecha_inicio = forms.DateField(label='Fecha Inicio', widget=forms.TextInput(attrs={'type': 'date'}))
     fecha_fin = forms.DateField(label='Fecha Fin', widget=forms.TextInput(attrs={'type': 'date'}))
+    empleados = forms.ModelMultipleChoiceField(
+        queryset=Empleado.objects.order_by('pk').all(),
+        widget=forms.CheckboxSelectMultiple
+    )
