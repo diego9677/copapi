@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 
-{% block title %}Requerimientos Materiales{% endblock %}
+{% block title %}Envio Materiales{% endblock %}
 
 {% block content %}
 <section class="flex justify-end items-center">
@@ -64,7 +64,7 @@
                     <td class="flex gap-2 items-center justify-center h-12">
                         {% if proyecto.estado in valid_statuses %}
                             <div class="w-8">
-                                <a href="{% url 'proyecto-detail' proyecto.pk %}" class="btn-secondary">
+                                <a href="{% url 'proyecto-envio-detail' proyecto.pk %}" class="btn-secondary">
                                     <i class="las la-arrow-right la-lg"></i>
                                 </a>
                             </div>

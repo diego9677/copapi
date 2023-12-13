@@ -1,9 +1,78 @@
 {% extends 'index.html' %}
+{% load formclss %}
 
 {% block title %}Reportes{% endblock %}
 
 {% block content %}
-    <div>
-        Reportes
-    </div>
+   <section class="flex flex-col gap-6">
+        <form class="flex items-end gap-2" action="" method="get">
+            <div class="flex flex-col gap-1">
+                <label for="{{form.proyecto.id_for_label}}">{{ form.proyecto.label }}</label>
+                {{form.proyecto|addclss:"form-control"}}
+            </div>
+            <div>
+                <button type="submit" class="flex-1 btn btn-primary">
+                    Generar
+                </button>
+            </div>
+        </form>
+        
+        {% if proyecto %}
+            <div class="flex justify-between border-b pb-4">
+                <div class="flex flex-col">
+                    <span class="text-sm font-normal text-neutral-600">{{ proyecto.tipo.nombre }}</span>
+                    <h3 class="text-lg font-semibold text-neutral-700">{{ proyecto.nombre }}</h3>
+                    <p>{{ proyecto.barrio.nombre }}</p>
+                    <p class="flex gap-1 items-center">{{ proyecto.barrio.poblacion }} <i class="las la-user"></i></p>
+                </div>
+                <p class="text-sm font-semibold text-neutral-800">{{ proyecto.get_estado_display }}</p>
+            </div>
+            
+            {% if asignaciones.count > 0 %}
+                <section class="overflow-auto h-[calc(100vh_-_20rem)] border-b">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="sticky top-0 bg-gray-200 text-left text-gray-800 text-sm font-semibold">
+                                <th class="p-2 uppercase border">material</th>
+                                <th class="p-2 uppercase border">c. necesaria</th>
+                                <th class="p-2 uppercase border">c. enviada</th>
+                                <th class="p-2 uppercase border">f. pedido</th>
+                                <th class="p-2 uppercase border">f. envio</th>
+                            </tr>
+                        </thead>
+                        <tbody class='bg-white divide-y divide-gray-200'>
+                            {% for asignacion in asignaciones %}
+                                <tr class="text-left text-sm font-normal text-gray-900">
+                                    <td class="p-2">{{ asignacion.material.nombre }}</td>
+                                    <td class="p-2">{{ asignacion.cantidad_necesaria }} U</td>
+                                    <td class="p-2">
+                                        {% if asignacion.cantidad_enviada is not None %}
+                                            {{ asignacion.cantidad_enviada }} U
+                                        {% else %}
+                                            --
+                                        {% endif %}
+                                    </td>
+                                    <td class="p-2">
+                                        {% if asignacion.fecha_pedido is not None %}
+                                            {{ asignacion.fecha_pedido }}
+                                        {% else %}
+                                            --
+                                        {% endif %}
+                                    </td>
+                                    <td class="p-2">
+                                        {% if asignacion.fecha_envio is not None %}
+                                            {{ asignacion.fecha_envio }}
+                                        {% else %}
+                                            --
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            {% endif %}
+        {% endif %}
+ 
+   </section>
 {% endblock %}

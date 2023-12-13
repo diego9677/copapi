@@ -21,7 +21,7 @@
             </div>
             <div class="w-12">
                 <button class="btn btn-success">
-                    B
+                    <i class="las la-search la-lg"></i>
                 </button>
             </div>
         </form>
@@ -34,6 +34,8 @@
                     <th class="p-2 uppercase border">nombre</th>
                     <th class="p-2 uppercase border">tipo</th>
                     <th class="p-2 uppercase border">barrio</th>
+                    <th class="p-2 uppercase border">a. potable</th>
+                    <th class="p-2 uppercase border">alcant.</th>
                     <th class="p-2 uppercase border">inicio</th>
                     <th class="p-2 uppercase border">fin</th>
                     <th class="p-2 uppercase border">estado</th>
@@ -47,6 +49,20 @@
                         <td class="p-2">{{ object.nombre }}</td>
                         <td class="p-2">{{ object.tipo.nombre }}</td>
                         <td class="p-2">{{ object.barrio.nombre }}</td>
+                        <td class="px-2">
+                            {% if object.barrio.servicio_agua is True %}
+                                <i class="las la-check-circle la-2x text-green-600"></i>
+                            {% else %}
+                                <i class="las la-times-circle la-2x text-red-600"></i>
+                            {% endif %}
+                        </td>
+                        <td class="px-2">
+                            {% if object.barrio.servicio_alcantarillado is True %}
+                                <i class="las la-check-circle la-2x text-green-600"></i>
+                            {% else %}
+                                <i class="las la-times-circle la-2x text-red-600"></i>
+                            {% endif %}
+                        </td>
                         <td class="p-2">{{ object.fecha_inicio|date:"d/m/Y" }}</td>
                         <td class="p-2">{{ object.fecha_fin|date:"d/m/Y" }}</td>
                         <td class="p-2">{{ object.get_estado_display }}</td>

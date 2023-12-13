@@ -8,11 +8,10 @@ ROLES = (
 )
 
 ESTADOS = (
-    (1, 'Preparado'),
-    (2, 'Aprobado'),
-    (3, 'En Curso'),
-    (4, 'Terminado'),
-    (5, 'Cancelado'),
+    (1, 'Aprobado'),
+    (2, 'En Curso'),
+    (3, 'Terminado'),
+    (4, 'Cancelado'),
 )
 
 
@@ -60,7 +59,7 @@ class Material(models.Model):
     nombre = models.CharField(max_length=200, verbose_name='Nombre')
     cantidad = models.IntegerField(verbose_name='Cantidad')
     precio = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Precio')
-    proyectos = models.ManyToManyField(Proyecto, through='AsignarMaterial', through_fields=('material', 'proyecto'))
+    proyectos = models.ManyToManyField(Proyecto, related_name='materiales', through='AsignarMaterial', through_fields=('material', 'proyecto'))
 
     def __str__(self) -> str:
         return self.nombre
@@ -70,8 +69,9 @@ class AsignarMaterial(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
     cantidad_necesaria = models.IntegerField(verbose_name='Cantidad Necesaria')
-    cantidad_enviada = models.IntegerField(verbose_name='Cantidad Enviada')
-    fecha_envio = models.DateTimeField(verbose_name='Fecha Envio')
+    cantidad_enviada = models.IntegerField(null=True, verbose_name='Cantidad Enviada')
+    fecha_pedido = models.DateTimeField(null=True, verbose_name='Fehca pedido')
+    fecha_envio = models.DateTimeField(null=True, verbose_name='Fecha Envio')
 
     def __str__(self) -> str:
         return str(self.pk)

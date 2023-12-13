@@ -1,5 +1,5 @@
 from django import forms
-from .models import TipoProyecto, Empleado
+from .models import TipoProyecto, Empleado, Proyecto
 
 
 class ProyectoForm(forms.Form):
@@ -19,4 +19,12 @@ class ProyectoForm(forms.Form):
     empleados = forms.ModelMultipleChoiceField(
         queryset=Empleado.objects.order_by('pk').all(),
         widget=forms.CheckboxSelectMultiple
+    )
+
+
+class ReportPryectoForm(forms.Form):
+    proyecto = forms.ModelChoiceField(
+        queryset=Proyecto.objects.order_by('pk').all(),
+        label='Proyecto',
+        required=False,
     )

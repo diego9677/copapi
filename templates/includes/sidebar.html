@@ -16,7 +16,18 @@
             <div class="flex gap-2 items-center text-gray-100">
                 <i class="las la-file-alt la-lg"></i>
                 <span class="text-sm font-medium">
-                    Materiales
+                    Requerimientos Materiales
+                </span>
+            </div>
+        </a>
+
+        
+        <a href="{% url 'envios' %}"
+            class="outline-none p-4 cursor-pointer {% if request.path == '/proyecto/envios/' %}bg-blue-600{%else%}hover:bg-gray-700{% endif %}">
+            <div class="flex gap-2 items-center text-gray-100">
+                <i class="las la-truck la-lg"></i>
+                <span class="text-sm font-medium">
+                    Envios Materiales
                 </span>
             </div>
         </a>
