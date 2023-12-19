@@ -1,12 +1,5 @@
 from django.db import models
 
-ROLES = (
-    ('recp', 'Recepcion'),
-    ('ctr', 'Constructor'),
-    ('con', 'Contratista'),
-    ('opr', 'Operador')
-)
-
 ESTADOS = (
     (1, 'Aprobado'),
     (2, 'En Curso'),
@@ -34,12 +27,12 @@ class TipoProyecto(models.Model):
         return self.nombre
 
 
-class Empleado(models.Model):
-    persona = models.ForeignKey('transporte.Persona', related_name='empleados', on_delete=models.CASCADE)
-    rol = models.CharField(max_length=10, choices=ROLES, verbose_name='Rol')
+# class Empleado(models.Model):
+#     persona = models.OneToOneField('transporte.Persona', related_name='empleados', on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.persona.nombres
+
+#     def __str__(self) -> str:
+#         return self.persona.nombres
 
 
 class Proyecto(models.Model):
@@ -49,7 +42,7 @@ class Proyecto(models.Model):
     fecha_fin = models.DateField(verbose_name='Fecha Fin')
     estado = models.PositiveIntegerField(choices=ESTADOS, verbose_name='estado')
     barrio = models.ForeignKey(Barrio, null=True, blank=True, related_name='proyectos', on_delete=models.CASCADE)
-    empleados = models.ManyToManyField(Empleado, related_name='proyectos')
+    empleados = models.ManyToManyField('transporte.Persona', related_name='proyectos')
 
     def __str__(self) -> str:
         return self.nombre
@@ -75,3 +68,13 @@ class AsignarMaterial(models.Model):
 
     def __str__(self) -> str:
         return str(self.pk)
+
+
+class Comentario(models.Model):
+    proyecto = models.ForeignKey(Proyecto, related_name='comentarios', on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=200, verbose_name='Nombre')
+    texto = models.TextField(verbose_name='Texto')
+    puntuacion = models.FloatField(default=0)
+
+    def __str__(self) -> str:
+        return self.nombre

@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from .models import Chofer, Persona, Marca, Modelo, Vehiculo, Viaje
+from .models import Persona, Marca, Modelo, Vehiculo, Viaje
 
 
-@admin.register(Chofer)
-class ChoferAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'licencia')
+# @admin.register(Chofer)
+# class ChoferAdmin(admin.ModelAdmin):
+#     list_display = ('pk', 'licencia')
 
 
 @admin.register(Persona)

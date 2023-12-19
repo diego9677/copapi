@@ -1,5 +1,6 @@
 from django import forms
-from .models import TipoProyecto, Empleado, Proyecto
+from .models import TipoProyecto, Proyecto
+from transporte.models import Persona
 
 
 class ProyectoForm(forms.Form):
@@ -17,7 +18,7 @@ class ProyectoForm(forms.Form):
     fecha_inicio = forms.DateField(label='Fecha Inicio', widget=forms.TextInput(attrs={'type': 'date'}))
     fecha_fin = forms.DateField(label='Fecha Fin', widget=forms.TextInput(attrs={'type': 'date'}))
     empleados = forms.ModelMultipleChoiceField(
-        queryset=Empleado.objects.order_by('pk').all(),
+        queryset=Persona.objects.order_by('pk').all(),
         widget=forms.CheckboxSelectMultiple
     )
 

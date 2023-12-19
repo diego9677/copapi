@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Barrio, Empleado, Material, TipoProyecto, Proyecto, AsignarMaterial
+from .models import Barrio, Material, TipoProyecto, Proyecto, AsignarMaterial
 
 
 @admin.register(Barrio)
@@ -7,9 +7,9 @@ class BarrioAdmin(admin.ModelAdmin):
     list_display = ('pk', 'nombre', 'servicio_agua', 'servicio_alcantarillado')
 
 
-@admin.register(Empleado)
-class EmpleadoAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'rol')
+# @admin.register(Empleado)
+# class EmpleadoAdmin(admin.ModelAdmin):
+#     list_display = ('pk', 'rol')
 
 
 @admin.register(Material)

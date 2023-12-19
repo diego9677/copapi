@@ -25,6 +25,13 @@ ESTADOS = (
     (4, 'Cancelado'),
 )
 
+ROLES = (
+    ('recp', 'Recepcion'),
+    ('ctr', 'Constructor'),
+    ('con', 'Contratista'),
+    ('opr', 'Operador')
+)
+
 
 class Marca(models.Model):
     nombre = models.CharField(max_length=200, verbose_name='Nombre')
@@ -61,22 +68,23 @@ class Persona(models.Model):
     telefono = models.CharField(max_length=50, verbose_name='Telefono')
     genero = models.CharField(max_length=1, choices=GENEROS, verbose_name='Genero')
     ciudad = models.CharField(max_length=4, choices=CITIES, verbose_name='Ciudad')
+    rol = models.CharField(null=True, max_length=20, choices=ROLES, verbose_name='Rol')
 
     def __str__(self) -> str:
         return f'{self.nombres} {self.apellidos}'
 
 
-class Chofer(models.Model):
-    persona = models.ForeignKey(Persona, related_name='choferes', on_delete=models.CASCADE)
-    licencia = models.CharField(max_length=100, verbose_name='Licencia')
-    fecha_contrato = models.DateField(verbose_name='Fecha Contrato')
+# class Chofer(models.Model):
+#     persona = models.ForeignKey(Persona, related_name='choferes', on_delete=models.CASCADE)
+#     licencia = models.CharField(max_length=100, verbose_name='Licencia')
+#     fecha_contrato = models.DateField(verbose_name='Fecha Contrato')
 
-    def __str__(self) -> str:
-        return self.licencia
+#     def __str__(self) -> str:
+#         return self.licencia
 
 
 class Viaje(models.Model):
-    chofer = models.ForeignKey(Chofer, related_name='viajes', on_delete=models.CASCADE)
+    chofer = models.ForeignKey(Persona, related_name='viajes', on_delete=models.CASCADE)
     vehiculo = models.ForeignKey(Vehiculo, related_name='viajes', on_delete=models.CASCADE)
     proyecto = models.ForeignKey('proyecto.Proyecto', related_name='viajes', on_delete=models.CASCADE)
     fecha_programada = models.DateTimeField(verbose_name='Fecha Programada')
