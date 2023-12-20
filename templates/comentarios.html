@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% load formclss %}
+
+{% block title %}Detalle{% endblock %}
+
+{% block content %}
+<section class="mx-auto w-1/2 border p-4 flex flex-col gap-4">
+    <h3 class="text-xl font-semibold text-neutral-700">Requerimientos de materiales</h3>
+
+    <div class="flex justify-between border-b pb-4">
+        <div class="flex flex-col">
+            <span class="text-sm font-normal text-neutral-600">{{ object.tipo.nombre }}</span>
+            <h3 class="text-lg font-semibold text-neutral-700">{{ object.nombre }}</h3>
+            <p>{{ object.barrio.nombre }}</p>
+            <p class="flex gap-1 items-center">{{ object.barrio.poblacion }} <i class="las la-user"></i></p>
+        </div>
+        <p class="text-sm font-semibold text-neutral-800">{{ object.get_estado_display }}</p>
+    </div>
+
+    <form action="." class="flex flex-col gap-4" method="post">{% csrf_token %}
+
+        <section class="flex flex-col gap-2">
+            <h6 class="text-base font-bold text-gray-800">Comentarios</h6>
+            {% for obj in object.comentarios.all %}
+            <section class="flex gap-4 items-center border px-4 py-2 rounded-md">
+                <div>
+                    <i class="las la-comment la-lg"></i>
+                </div>
+                <div class="flex flex-col flex-1">
+                    <span class="text-sm font-normal text-neutral-600">{{ obj.nombre }}</span>
+                    <p class="text-base text-neutral-800">{{ obj.texto }}</p>
+                </div>
+                <span class="text-sm font-bold text-neutral-700">positivo</span>
+            </section>
+            {% endfor %}
+        </section>
+
+        <label class="flex flex-col gap-1">
+            <span class="text-sm font-semibold text-neutral-700">{{ form.nombre.label }}</span>
+            {{ form.nombre|addclss:"input-primary" }}
+        </label>
+
+        <label class="flex flex-col gap-1">
+            <span class="text-sm font-semibold text-neutral-700">{{ form.comentario.label }}</span>
+            {{ form.comentario|addclss:"input-primary" }}
+        </label>
+
+        <div class="flex gap-2 items-center">
+            <a href="{% url 'proyectos' %}" class="flex-1 btn btn-secondary">
+                Cancelar
+            </a>
+            <button type="submit" class="flex-1 btn btn-primary">
+                Enviar
+            </button>
+        </div>
+
+    </form>
+</section>
+{% endblock %}

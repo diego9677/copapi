@@ -29,3 +29,8 @@ class ReportPryectoForm(forms.Form):
         label='Proyecto',
         required=False,
     )
+
+
+class CommentForm(forms.Form):
+    nombre = forms.CharField(label='Nombre', max_length=200)
+    comentario = forms.CharField(label='Comentario', widget=forms.Textarea(attrs={'rows': 2, 'cols': 10}))

@@ -10,8 +10,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DeleteView, FormView, DetailView
 
-from .models import Proyecto, Barrio, Material, AsignarMaterial
-from .forms import ProyectoForm, ReportPryectoForm
+
+from .models import Proyecto, Barrio, Material, AsignarMaterial, Comentario
+from .forms import ProyectoForm, ReportPryectoForm, CommentForm
 
 
 class ProyectoListView(LoginRequiredMixin, ListView):
@@ -218,3 +219,23 @@ def actulizar_envio_materiales(request: HttpRequest, proyecto_id: int):
     proyecto.estado = 2
     proyecto.save()
     return redirect(reverse_lazy('envios'))
+
+
+def comment_view(request: HttpRequest, pk: int):
+    proyecto = get_object_or_404(Proyecto, pk=pk)
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            Comentario.objects.create(
+                proyecto_id=pk,
+                nombre=form.cleaned_data['nombre'],
+                texto=form.cleaned_data['comentario']
+            )
+
+    context = {
+        'object': proyecto,
+        'form': form
+    }
+    return render(request, 'comentarios.html', context)

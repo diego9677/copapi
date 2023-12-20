@@ -10,12 +10,14 @@ from .views import (
     ProyectoDeleteView,
     ProyectoDetailView,
     ProyectoEnvioDetailView,
-    actulizar_envio_materiales
+    actulizar_envio_materiales,
+    comment_view
 )
 
 urlpatterns = [
     path('', ProyectoListView.as_view(), name='proyectos'),
     path('create/', ProyectoCreateView.as_view(), name='proyecto-create'),
+    path('comment/<int:pk>/', comment_view, name='proyecto-comment'),
     path('update/<int:pk>/', ProyectoUpdateView.as_view(), name='proyecto-update'),
     path('delete/<int:pk>/', ProyectoDeleteView.as_view(), name='proyecto-delete'),
     path('detail/<int:pk>/', ProyectoDetailView.as_view(), name='proyecto-detail'),

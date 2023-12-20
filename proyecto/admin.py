@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Barrio, Material, TipoProyecto, Proyecto, AsignarMaterial
+from .models import Barrio, Material, TipoProyecto, Proyecto, AsignarMaterial, Comentario
 
 
 @admin.register(Barrio)
@@ -30,3 +30,8 @@ class ProyectoAdmin(admin.ModelAdmin):
 @admin.register(AsignarMaterial)
 class AsignarMaterialAdmin(admin.ModelAdmin):
     list_display = ('pk', 'cantidad_necesaria', 'cantidad_enviada', 'fecha_envio')
+
+
+@admin.register(Comentario)
+class ComentarioAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'nombre', 'texto')
